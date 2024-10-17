@@ -15,12 +15,17 @@ public class Rocket : MonoBehaviour
     
     private readonly float SPEED = 500f;
     private readonly float FUELPERSHOOT = 10f;
-    
+
+    string highScoreStr = "HighScore";
+    int highscore;
+
     void Awake()
     {
         // TODO : Rigidbody2D 컴포넌트를 가져옴(캐싱) 
         rb2d = GetComponent<Rigidbody2D>();
         rocket = GetComponent<Rocket>();
+        GetHighScore();
+        HighScoreTxt.text = $"HighScore : {highscore} M";
     }
 
     public void Shoot()
@@ -37,16 +42,27 @@ public class Rocket : MonoBehaviour
     public void AddScore()
     {
         score = (int)rocket.transform.position.y;
-        currentScoreTxt.text = $"{score} M";
+        currentScoreTxt.text = $" {score} M";
     }
 
     private void Update()
     {
         AddScore();
+        SetHighScore();
     }
 
-    private void HighScore()
-    { 
+    private int GetHighScore()
+    {
+        highscore = PlayerPrefs.GetInt(highScoreStr);
+        return highscore;
+    }
+
+    private void SetHighScore()
+    {
+        if(score > GetHighScore())
+        {
+            PlayerPrefs.SetInt(highScoreStr, score);
+        }
 
     }
 
