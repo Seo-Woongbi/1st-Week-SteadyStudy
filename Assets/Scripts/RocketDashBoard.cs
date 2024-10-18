@@ -4,26 +4,27 @@ using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine;
 using TMPro;
 
-public class RocketDashBoard
+public class RocketDashBoard : MonoBehaviour 
 {
     [SerializeField] private TextMeshProUGUI currentScoreTxt;
-    [SerializeField] private TextMeshProUGUI HighScoreTxt;
+    [SerializeField] private TextMeshProUGUI highScoreTxt;
 
     int score = 0;
     Rocket rocket;
 
-    string highScoreStr = "HighScore";
+    string highScoreStr;
     int highscore;
 
     private void Awake()
     {
+        rocket = GetComponent<Rocket>();
         GetHighScore();
-        HighScoreTxt.text = $"HighScore : {highscore} M";
+        highScoreTxt.text = $"HighScore : {highscore} M";
     }
 
     public void AddScore()
     {
-        score = (int)rocket.transform.position.y;
+        score = (int)transform.position.y;
         currentScoreTxt.text = $" {score} M";
     }
 
@@ -39,7 +40,6 @@ public class RocketDashBoard
         {
             PlayerPrefs.SetInt(highScoreStr, score);
         }
-
     }
 
     public void RetryButton()

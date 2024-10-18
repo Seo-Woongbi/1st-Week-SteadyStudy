@@ -9,15 +9,16 @@ public class Rocket : MonoBehaviour
     private Rigidbody2D rb2d;
     private float fuel = 100f;
     
-    private readonly float SPEED = 500f;
+    private readonly float SPEED = 5f;
     private readonly float FUELPERSHOOT = 10f;
 
-   
+    Rocket rocket;
 
     void Awake()
     {
         // TODO : Rigidbody2D 컴포넌트를 가져옴(캐싱) 
-        rb2d = GetComponent<Rigidbody2D>();;
+        rb2d = GetComponent<Rigidbody2D>();
+        rocket = GetComponent<Rocket>();
     }
 
     public void Shoot()
@@ -26,7 +27,7 @@ public class Rocket : MonoBehaviour
         if (fuel >= 10f)
         {
             fuel -= FUELPERSHOOT;
-            rb2d.AddForce(Vector2.up * SPEED);
+            rb2d.AddForce(Vector2.up * SPEED, ForceMode2D.Impulse);
         }
         else return;
     }

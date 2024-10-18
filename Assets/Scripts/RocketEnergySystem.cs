@@ -1,4 +1,6 @@
-﻿public class RocketEnergySystem
+﻿using UnityEngine;
+
+public class RocketEnergySystem : MonoBehaviour
 {
 
 }
